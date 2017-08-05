@@ -46,6 +46,7 @@ void Game::Go()
 	gfx.EndFrame();
 }
 
+// Change
 void Game::UpdateModel()
 {
 	if(GameIsStart && !IsGameOver)
