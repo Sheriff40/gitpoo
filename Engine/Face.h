@@ -8,14 +8,14 @@ public:
 	void Clamp();
 	void DrawFace(Graphics &gfx);
 	void update(Keyboard &kbd);
-	int getx();
-	int gety();
-	static int width();
-	static int height();
+	float getx();
+	float gety();
+	static float width();
+	static float height();
 private:
-	int x = 400;
-	int y = 300;
-	static constexpr int width1 = 20;
-	static constexpr int height1 = 20;
+	float x = 400.0f;
+	float y = 300.0f;
+	static constexpr float width1 = 20.0f;
+	static constexpr float height1 = 20.0f;
 	int speed = 2;
 };

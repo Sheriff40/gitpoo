@@ -27,11 +27,11 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	xDist(0,770),
-	yDist(0,570),
-	vxDist(-1,1),
+	xDist(0.0f,770.0f),
+	yDist(0.0f,570.0f),
 	box0(xDist(rng), yDist(rng))
 {
+	std::uniform_real_distribution<float> vxDist(-2.5f, 2.5f);
 	for (int i = 0; i < npoo; i++)
 	{
 		Poo[i].Update1(xDist(rng), yDist(rng), vxDist(rng), vxDist(rng));
@@ -2223,6 +2223,7 @@ void Game::DrawGameOver(int x, int y)
 //	return
 //		((x < 0) || (x >= ((gfx.ScreenWidth - 1) - width)) || (y < 0) || (y >= ((gfx.ScreenHeight - 1) - height)));
 //}
+
 void Game::DrawStartGame(int x, int y)
 {
 	gfx.PutPixel(0 + x, 0 + y, 208, 34, 34);

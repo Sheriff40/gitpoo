@@ -54,9 +54,9 @@ private:
 	*/
 	std::random_device rd;
 	std::mt19937 rng;
-	std::uniform_int_distribution<int> xDist;
-	std::uniform_int_distribution<int> yDist;
-	std::uniform_int_distribution<int> vxDist;
+	std::uniform_real_distribution<float> xDist;
+	std::uniform_real_distribution<float> yDist;
+	
 	int GameOverX = 358;
 	int GameOverY = 258;
 	int StartGameX = 340;

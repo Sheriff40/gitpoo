@@ -32,25 +32,25 @@ void box::changecolor()
 
 bool box::collision(Face & face)
 {
-	const int right_face = face.getx() + face.width();
-	const int bottom_face = face.gety() + face.height();
-	const int right_box = x + dimension;
-	const int left_box = x;
-	const int bottom_box = y + dimension;
-	const int top_box = y;
+	const float right_face = face.getx() + face.width();
+	const float bottom_face = face.gety() + face.height();
+	const float right_box = x + dimension;
+	const float left_box = x;
+	const float bottom_box = y + dimension;
+	const float top_box = y;
 	return (face.getx() <= right_box &&
 		right_face >= left_box &&
 		face.gety() <= bottom_box &&
 		bottom_face >= top_box);
 }
 		
-box::box(int x_0, int y_0)
+box::box(float x_0, float y_0)
 {
 	x = x_0;
 	y = y_0;
 }
 
-void box::changexy(int x_0, int y_0)
+void box::changexy(float x_0, float y_0)
 {
 	x = x_0;
 	y = y_0;

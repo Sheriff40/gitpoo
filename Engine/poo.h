@@ -6,14 +6,14 @@ public:
 	void Update();
 	void DrawPoop(Graphics& gfx);
 	bool Collision(Face& face) ;
-	void Update1(int x_1, int y_1, int vx_1, int vy_1);
+	void Update1(float x_1, float y_1, float vx_1, float vy_1);
 	
 private:
-	int x;
-	int y;
-	int vx;
-	int vy;
-	static constexpr int width = 24;
-	static constexpr int height = 24;
+	float x;
+	float y;
+	float vx;
+	float vy;
+	static constexpr float width = 24.0f;
+	static constexpr float height = 24.0f;
 	
 };
