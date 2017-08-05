@@ -104,6 +104,8 @@ void Game::ComposeFrame()
 	else
 	{
 		Face0.DrawFace(gfx);
+		Color c = { 255,0,0 };
+		gfx.DrawCircle(100, 100, 80, c);
 		//bool over = true;
 		//for (int i = 0; i < npoo; i++)
 		//{
