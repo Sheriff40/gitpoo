@@ -34,26 +34,24 @@ bool box::collision(Face & face)
 {
 	const float right_face = face.getx() + face.width();
 	const float bottom_face = face.gety() + face.height();
-	const float right_box = x + dimension;
-	const float left_box = x;
-	const float bottom_box = y + dimension;
-	const float top_box = y;
+	const float right_box = pos.x + dimension;
+	const float left_box = pos.x;
+	const float bottom_box = pos.y + dimension;
+	const float top_box = pos.y;
 	return (face.getx() <= right_box &&
 		right_face >= left_box &&
 		face.gety() <= bottom_box &&
 		bottom_face >= top_box);
 }
 		
-box::box(float x_0, float y_0)
+box::box(Vec2& pos_in)
 {
-	x = x_0;
-	y = y_0;
+	pos = pos_in;
 }
 
-void box::changexy(float x_0, float y_0)
+void box::changexy(Vec2& pos_in2)
 {
-	x = x_0;
-	y = y_0;
+	pos = pos_in2;
 }
 
 

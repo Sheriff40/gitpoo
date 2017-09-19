@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Vec2.h"
 #include <random>
 
 Game::Game(MainWindow& wnd)
@@ -29,12 +30,12 @@ Game::Game(MainWindow& wnd)
 	rng(rd()),
 	xDist(0.0f,770.0f),
 	yDist(0.0f,570.0f),
-	box0(xDist(rng), yDist(rng))
+	box0(Vec2(xDist(rng), yDist(rng)))
 {
-	std::uniform_real_distribution<float> vxDist(-2.5f, 2.5f);
+	std::uniform_real_distribution<float> vxDist(-2.5f * 60.0f, 2.5f * 60.0f);
 	for (int i = 0; i < npoo; i++)
 	{
-		Poo[i].Update1(xDist(rng), yDist(rng), vxDist(rng), vxDist(rng));
+		Poo[i].Update1(Vec2(xDist(rng), yDist(rng)),Vec2(vxDist(rng), vxDist(rng)));
 	}
 }
 
@@ -49,13 +50,19 @@ void Game::Go()
 // Change
 void Game::UpdateModel()
 {
+	/*Vec2 V1(14.0f, 12.0f);
+	Vec2 V2(2.0f, 2.0f);
+	Vec2 V3 = V1 + V2;
+	V3 = V1 * 5.00f; */
+
+	const float dt = frame.Mark();
 	if(GameIsStart && !IsGameOver)
 	{ 
-		Face0.update(wnd.kbd);
+		Face0.update(wnd.kbd,dt);
 		Face0.Clamp();
 		for (int i = 0; i < npoo; i++)
 		{
-			Poo[i].Update();
+			Poo[i].Update(dt);
 			for (int i = 0; i < npoo; i++)
 			{
 				if (Poo[i].Collision(Face0))
@@ -65,7 +72,7 @@ void Game::UpdateModel()
 			}
 			if (box0.collision(Face0))
 			{
-				box0.changexy(xDist(rng), yDist(rng));
+				box0.changexy(Vec2(xDist(rng), yDist(rng)));
 				score1 = score1 + 1;
 			}
 		}
@@ -97,6 +104,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	
 	if (!GameIsStart)
 	{
 		DrawStartGame(StartGameX, StartGameY);
@@ -104,8 +112,7 @@ void Game::ComposeFrame()
 	else
 	{
 		Face0.DrawFace(gfx);
-		Color c = { 255,0,0 };
-		gfx.DrawCircle(100, 100, 80, c);
+		gfx.DrawCircle(100, 100, 80, 30, Colors::Red);
 		//bool over = true;
 		//for (int i = 0; i < npoo; i++)
 		//{

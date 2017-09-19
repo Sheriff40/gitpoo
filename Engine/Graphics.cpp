@@ -240,21 +240,24 @@ Graphics::Graphics( HWNDKey& key )
 		_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
 }
 
-void Graphics::DrawCircle(int xm, int ym, int radius, Color c)
+//CIRCLE
+
+void Graphics::DrawCircle(int xm, int ym, int radius,int innerradius, Color c)
 {
-	int rad = radius * radius;
-	for (int posy = ym - radius + 1; posy < (ym + radius); posy++)
-	{
-		for (int posx = xm - radius + 1; posx < (xm + radius); posx++)
-		{	
-			const int base = posx - xm;
-			const int perpendicular = posy - ym;
-			if (((base * base) + (perpendicular*perpendicular)) <= rad)
+		int rad = radius * radius;
+		const int innerrad = innerradius * innerradius;
+		for (int posy = ym - radius + 1; posy < (ym + radius); posy++)
+		{
+			for (int posx = xm - radius + 1; posx < (xm + radius); posx++)
 			{
-				PutPixel(posx, posy, c);
+				const int base = posx - xm;
+				const int perpendicular = posy - ym;
+				if (((base * base) + (perpendicular*perpendicular)) <= rad && (((base * base) + (perpendicular*perpendicular)) >= innerrad))
+				{
+					PutPixel(posx, posy, c);
+				}
 			}
 		}
-	}
 }
 
 Graphics::~Graphics()
@@ -332,6 +335,8 @@ void Graphics::PutPixel( int x,int y,Color c )
 	assert( y < int( Graphics::ScreenHeight ) );
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
+
+//RECTANGLE
 
 void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
 {

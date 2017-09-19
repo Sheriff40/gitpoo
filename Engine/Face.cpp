@@ -3,29 +3,31 @@
 
 void Face::Clamp()
 {
-	if (x < 0)
+	if (pos.x < 0)
 	{
-		x = 0;
+		pos.x = 0;
 	}
 
-	else if (x >= (float(Graphics::ScreenWidth - 1) - width1))
+	else if (pos.x >= (float(Graphics::ScreenWidth - 1) - width1))
 	{
-		x = (float(Graphics::ScreenWidth - 1) - width1);
+		pos.x = (float(Graphics::ScreenWidth - 1) - width1);
 	}
 
-	else if (y < 0)
+	else if (pos.y < 0)
 	{
-		y = 0;
+		pos.y = 0;
 	}
 
-	else if (y >= float(Graphics::ScreenHeight - 1) - height1)
+	else if (pos.y >= float(Graphics::ScreenHeight - 1) - height1)
 	{
-		y = float(Graphics::ScreenHeight - 1) - height1;
+		pos.y = float(Graphics::ScreenHeight - 1) - height1;
 	}
 }
 
 void Face::DrawFace(Graphics &gfx)
-{
+{	
+	const int x = int(pos.x);
+	const int y = int(pos.y);
 	gfx.PutPixel(7 + int (x), 0 + int (y), 0, 0, 0);
 	gfx.PutPixel(8 + int (x), 0 + int (y), 0, 0, 0);
 	gfx.PutPixel(9 + int (x), 0 + int (y), 0, 0, 0);
@@ -345,38 +347,36 @@ void Face::DrawFace(Graphics &gfx)
 
 }
 
-void Face::update(Keyboard& kbd)
+void Face::update(Keyboard& kbd, float dt)
 {
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		x += speed;
+		pos.x += speed * dt;
 	}
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		x -= speed;
+		pos.x -= speed * dt;
 
 	}
 	if (kbd.KeyIsPressed(VK_UP))
 	{
-		y -= speed;
+		pos.y -= speed * dt;
 	}
 	if (kbd.KeyIsPressed(VK_DOWN))
 	{
-		y += speed;
+		pos.y += speed * dt;
 	}
 	
 }
 
-
-
 float Face::getx()
 {
-	return x;
+	return pos.x;
 }
 
 float Face::gety()
 {
-	return y;
+	return pos.y;
 }
 
 float Face::width()

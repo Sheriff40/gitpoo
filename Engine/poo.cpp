@@ -2,36 +2,36 @@
 #include "poo.h"
 #include "Graphics.h"
 
-void poo::Update()
+void poo::Update(float dt)
 {
-	x = x + vx;
-	y = y + vy;
+	pos.x += vel.x * dt;
+	pos.y += vel.y * dt;
 
 	{
-		if (x < 0)
+		if (pos.x < 0)
 		{
-			x = 0;
-			vx = -vx;
+			pos.x = 0;
+			vel.x = -vel.x;
 		}
 
-		else if (x >= (float(Graphics::ScreenWidth - 1) - width))
+		else if (pos.x >= (float(Graphics::ScreenWidth - 1) - width))
 		{
-			x = (float(Graphics::ScreenWidth - 1) - width);
-			vx = -vx;
+			pos.x = (float(Graphics::ScreenWidth - 1) - width);
+			vel.x = -vel.x;
 		}
 	}
 
 	{
-		if (y < 0)
+		if (pos.y < 0)
 		{
-			y = 0;
-			vy = -vy;
+			pos.y = 0;
+			vel.y = -vel.y;
 		}
 
-		else if (y >= (float(Graphics::ScreenHeight - 1) - height))
+		else if (pos.y >= (float(Graphics::ScreenHeight - 1) - height))
 		{
-			y = (float(Graphics::ScreenHeight - 1) - height);
-			vy = -vy;
+			pos.y = (float(Graphics::ScreenHeight - 1) - height);
+			vel.y = -vel.y;
 		}
 	}
 
@@ -39,6 +39,8 @@ void poo::Update()
 
 void poo::DrawPoop(Graphics& gfx)
 {
+	const int x = int(pos.x);
+	const int y = int(pos.y);
 	gfx.PutPixel(14 + int (x), 0 + int (y), 138, 77, 0);
 	gfx.PutPixel(7 + int (x), 1 + int (y), 138, 77, 0);
 	gfx.PutPixel(13 + int (x), 1 + int (y), 138, 77, 0);
@@ -272,27 +274,25 @@ void poo::DrawPoop(Graphics& gfx)
 	gfx.PutPixel(6 + int (x), 23 + int (y), 51, 28, 0);
 }
 
-bool poo::Collision (Face& face) 
+bool poo::Collision (Face& face)  
 {
 	const float right_face = face.getx() + face.width();
 	const float bottom_face = face.gety() + face.height();
-	const float right_poop = x + width;
-	const float bottom_poop = y + height;
+	const float right_poop = pos.x + width;
+	const float bottom_poop = pos.y + height;
 
 	return (face.getx() <= right_poop &&
-		right_face >= x &&
+		right_face >= pos.x &&
 		face.gety() <= bottom_poop &&
-		bottom_face >= y);
+		bottom_face >= pos.y);
 }
 
 
 
-void poo::Update1(float x_1,  float y_1, float vx_1, float vy_1)
+void poo::Update1(const Vec2& pos_1, const Vec2& vel_1)
 {
-	x = x_1;
-	y = y_1;
-	vx = vx_1;
-	vy = vy_1;
+	pos = pos_1;
+	vel = vel_1;
 }
 
 

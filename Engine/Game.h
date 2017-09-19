@@ -28,6 +28,7 @@
 #include <random>
 #include "box.h"
 #include "score.h"
+#include "FrameTimer.h"
 class Game
 {
 public:
@@ -56,7 +57,6 @@ private:
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
-	
 	int GameOverX = 358;
 	int GameOverY = 258;
 	int StartGameX = 340;
@@ -64,6 +64,7 @@ private:
 	bool IsGameOver = false;
 	bool GameIsStart = false;
 	static constexpr int npoo = 9;
+	FrameTime frame;
 	poo Poo[npoo];
 	Face Face0;
 	box box0;

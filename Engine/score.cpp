@@ -2,6 +2,6 @@
 
 void score::DrawScore(Graphics &gfx, int score1)
 {
-	gfx.DrawRectDim(x, y, width*score1, height,Colors::Blue);
+	gfx.DrawRectDim(pos.x, pos.y, width*score1, height,Colors::Blue);
 	
 }
